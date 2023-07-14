@@ -8,7 +8,10 @@ jobs:
   print_github_info:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ toJSON(github) }}
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - uses: docker/metadata-action@v4
         with:
           images: testimage/testimage
