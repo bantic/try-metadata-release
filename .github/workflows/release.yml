@@ -1,0 +1,18 @@
+name: Build and Publish Test
+
+on:
+  release:
+    types: [published, created, released]
+
+jobs:
+  print_github_info:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ toJSON(github) }}
+      - uses: docker/metadata-action@v4
+        with:
+          images: testimage/testimage
+          tags: |
+            type=raw,value=v${{ github.ref_name }}
+            type=semver,pattern=v{{version}}
+            type=ref,event=tag
