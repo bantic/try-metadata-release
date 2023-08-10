@@ -24,6 +24,13 @@ jobs:
       - if: ${{ !github.event_name == 'pull_request' }}
         run: |
           echo "!pr= github event name: ${{ github.event_name }}"
+      - run: |
+          echo "0 : ${{ github.event_name }}"
+          echo "a : ${{ !github.event_name }}"
+          echo "b : ${{ !github.event_name == 'pull_request' }}"
+          echo "c : ${{ github.event_name != 'pull_request' }}"
+          echo "d : ${{ !github.event_name == 'push' }}"
+          echo "e : ${{ github.event_name != 'push' }}"
 
   # Note: This job name MUST NOT CHANGE without also updating RAPID
   build:
