@@ -10,6 +10,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "github event name: ${{ github.event_name }}"
+      - if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          echo "=pr github event name: ${{ github.event_name }}"
+      - if: ${{ github.event_name != 'pull_request' }}
+        run: |
+          echo "!= pr github event name: ${{ github.event_name }}"
+      - if: ${{ !github.event_name == 'pull_request' }}
+        run: |
+          echo "!pr= github event name: ${{ github.event_name }}"
+
   # Note: This job name MUST NOT CHANGE without also updating RAPID
   build:
     runs-on: ubuntu-latest
