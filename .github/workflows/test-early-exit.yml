@@ -13,6 +13,7 @@ jobs:
       - run: echo hello
       - run: |
           echo testing
+          set +e
           rm missingfile
           if [ "$?" -eq 0 ]; then
             echo "success"
