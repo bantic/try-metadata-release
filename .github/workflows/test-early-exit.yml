@@ -1,0 +1,23 @@
+name: Test Early Exit
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
+
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo hello
+      - run: |
+          echo testing
+          rm missingfile
+          if [ "$?" -eq 0 ]; then
+            echo "success"
+            exit 0
+          else
+            echo "failure"
+            exit 1
+          fi
